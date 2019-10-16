@@ -6,4 +6,4 @@
 
 **Forge Version:** 28.1.0 or later.
 
-Simple mod that adds configurable clock to the overlay.
+Simple mod that adds configurable clock to the game overlay.
