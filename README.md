@@ -1,4 +1,4 @@
-# Universal Clock HUD
+# World Name Randomizer
 
 **Current Version:** 1.0.0
 
@@ -6,4 +6,4 @@
 
 **Forge Version:** 28.1.0 or later.
 
-Simple mod that adds configurable clock to the game overlay.
+Simple name that generates randomized world name each time you are going to create new world.

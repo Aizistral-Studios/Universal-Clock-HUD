@@ -1,4 +1,4 @@
-package com.universalclockhud.config;
+package com.worldnamerandomizer.config;
 
 public interface IComplexParameter {
 	

@@ -1,24 +1,24 @@
 modLoader="javafml" #mandatory
 loaderVersion="[28,)" #mandatory (26 is current forge version)
-issueTrackerURL="https://github.com/Extegral/Universal-Clock-HUD/issues" #optional
+issueTrackerURL="https://github.com/Extegral/World-Name-Randomizer/issues" #optional
 [[mods]] #mandatory
-modId="universalclockhud" #mandatory
+modId="worldnamerandomizer" #mandatory
 version="1.0.0" #mandatory
-displayName="Universal Clock HUD" #mandatory
-displayURL="https://www.curseforge.com/minecraft/mc-mods/universal-clock-hud" #optional
-logoFile="UC_logo.png" #optional
+displayName="World Name Randomizer" #mandatory
+displayURL="https://www.curseforge.com/minecraft/mc-mods/world-name-randomizer" #optional
+logoFile="WNR_logo.png" #optional
 credits="Me, for making such an amazing mod." #optional
 authors="Integral" #optional
 description='''
-Simple mod that adds configurable clock to the overlay.
+Simple mod that puts in random world name each time you're going to create new world.
 '''
-[[dependencies.universalclockhud]] #optional
+[[dependencies.worldnamerandomizer]] #optional
     modId="forge" #mandatory
     mandatory=true #mandatory
     versionRange="[28.1.0,)" #mandatory
     ordering="NONE"
     side="BOTH"
-[[dependencies.universalclockhud]]
+[[dependencies.worldnamerandomizer]]
     modId="minecraft"
     mandatory=true
     versionRange="[1.14.4]"

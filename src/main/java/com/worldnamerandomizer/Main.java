@@ -1,36 +1,40 @@
-package com.universalclockhud;
+package com.worldnamerandomizer;
+
+import java.lang.reflect.Field;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.universalclockhud.config.ConfigHandler;
-import com.universalclockhud.handlers.GenericEventHandler;
+import com.worldnamerandomizer.config.ConfigHandler;
+import com.worldnamerandomizer.handlers.GenericEventHandler;
 
+import net.minecraft.client.gui.screen.CreateWorldScreen;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
-@Mod("universalclockhud")
+@Mod("worldnamerandomizer")
 public class Main {
 
-	public static Main enigmaticLegacy;
-	public static final Logger logger = LogManager.getLogger("Universal Clock HUD");
+	public static final Logger logger = LogManager.getLogger("World Name Randomizer");
 	
-	public static final String MODID = "universalclockhud";
+	public static final String MODID = "worldnamerandomizer";
 	public static final String VERSION = "1.0.0";
 	public static final String RELEASE_TYPE = "Release";
-	public static final String NAME = "Universal Clock HUD";
+	public static final String NAME = "World Name Randomizer";
 	
 	public static final int howCoolAmI = Integer.MAX_VALUE;
 	
 	public static GenericEventHandler handler;
-	
-	public static ItemStack universalClock;
+
+	public static Field worldNameField;
+	public static Field worldSeedField;
 	
 	public Main() {
 		logger.info("Constructing mod instance...");
@@ -61,9 +65,8 @@ public class Main {
 			ConfigHandler.CONFIG_VERSION.save();
 		}
 		
-		logger.info("Creating the Universal Clock...");
-		
-		universalClock = new ItemStack(Items.CLOCK);
+		worldNameField = ObfuscationReflectionHelper.findField(CreateWorldScreen.class, "field_146330_J");
+		worldSeedField = ObfuscationReflectionHelper.findField(CreateWorldScreen.class, "field_146329_I");
 		
 		logger.info("Load completion phase finished successfully");
 	}
