@@ -1,26 +1,27 @@
-modLoader="javafml" #mandatory
-loaderVersion="[28,)" #mandatory (26 is current forge version)
-issueTrackerURL="https://github.com/Extegral/Universal-Clock-HUD/issues" #optional
-[[mods]] #mandatory
-modId="universalclockhud" #mandatory
-version="1.0.0" #mandatory
-displayName="Universal Clock HUD" #mandatory
-displayURL="https://www.curseforge.com/minecraft/mc-mods/universal-clock-hud" #optional
-logoFile="UC_logo.png" #optional
-credits="Me, for making such an amazing mod." #optional
-authors="Integral" #optional
+license="${mod_license}"
+modLoader="javafml"
+loaderVersion="[31,)"
+issueTrackerURL="${issue_tracker_url}"
+[[mods]]
+modId="${mod_id}"
+version="${mod_version}"
+displayName="${mod_name}"
+displayURL="${mod_url}"
+logoFile="${mod_icon}"
+credits="${mod_credits}"
+authors="${mod_author}"
 description='''
-Simple mod that adds configurable clock to the overlay.
+${mod_description}
 '''
-[[dependencies.universalclockhud]] #optional
-    modId="forge" #mandatory
-    mandatory=true #mandatory
-    versionRange="[28.1.0,)" #mandatory
+[[dependencies.${mod_id}]]
+    modId="forge"
+    mandatory=true
+    versionRange="${dep_forge}"
     ordering="NONE"
     side="BOTH"
-[[dependencies.universalclockhud]]
+[[dependencies.${mod_id}]]
     modId="minecraft"
     mandatory=true
-    versionRange="[1.14.4]"
+    versionRange="${dep_minecraft}"
     ordering="NONE"
     side="BOTH"
