@@ -1,22 +1,20 @@
 package com.integral.universalclockhud;
 
-import net.minecraftforge.fml.config.ModConfig;
-
 import com.integral.universalclockhud.handlers.ClientConfigHandler;
 import com.integral.universalclockhud.handlers.UniversalEventHandler;
 
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent;
 import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
 import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-
 
 @Mod(UniversalClockHUD.MODID)
 public class UniversalClockHUD {
@@ -49,7 +47,7 @@ public class UniversalClockHUD {
 		//FMLJavaModLoadingContext.get().getModEventBus().register(eventHandler);
 
 		ClientConfigHandler.constructConfig();
-		ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, ClientConfigHandler.clientConfig);
+		ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, ClientConfigHandler.clientConfig, "UniversalClockHUD.toml");
 	}
 
 	private void onLoadComplete(final FMLLoadCompleteEvent event) {

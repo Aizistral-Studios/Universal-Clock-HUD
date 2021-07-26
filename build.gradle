@@ -1,13 +1,13 @@
 buildscript {
     repositories {
-        maven { url = 'https://files.minecraftforge.net/maven' }
+        maven { url = 'https://maven.minecraftforge.net' }
         maven { url = 'https://dist.creeper.host/Sponge/maven' }
         maven { url 'https://plugins.gradle.org/m2/' }
         jcenter()
         mavenCentral()
     }
     dependencies {
-        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '3.+'
+        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
 		classpath 'gradle.plugin.com.matthewprenger:CurseGradle:1.4.0'
     }
 }
@@ -26,7 +26,7 @@ archivesBaseName = "${mod_archives_name}"
 
 
 println("Specifying Java compatibility...")
-sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8'
+java.toolchain.languageVersion = JavaLanguageVersion.of(16)
 
 println("Java Installation Data:")
 println(" - Java Version: " + System.getProperty('java.version'))
@@ -36,7 +36,7 @@ println(" - OS Archetype: " + System.getProperty('os.arch'))
 
 minecraft {
 	println("Specifying MCP mappings...")
-    mappings channel: 'snapshot', version: "${version_mcp}"
+    mappings channel: 'official', version: '1.17.1'
 	println("Specifying Access Transformer configuration...")	
 	// accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
 	
@@ -114,11 +114,13 @@ jar {
 processResources {
 	println("Processing resources...")
 
-    from(sourceSets.main.resources.srcDirs) {
+	exclude 'META-INF/mods.toml'
+
+    from("${project.projectDir}/docs/META-INF") {
 		println("Inflating mods.toml...")	
 	
 		// Replace properties in mods.toml with ones derived from settings.gradle
-        include 'META-INF/mods.toml'
+        include 'mods.toml'
         expand 'mod_license': mod_license, 
 		'mod_version': project.version, 
 		'mod_id' : mod_id, 
@@ -131,10 +133,7 @@ processResources {
 		'mod_credits': mod_credits, 
 		'dep_forge': dep_forge, 
 		'dep_minecraft': dep_minecraft
-    }
-
-    from(sourceSets.main.resources.srcDirs) {
-        exclude 'META-INF/mods.toml'
+		into 'META-INF'
     }
 
     from("${project.projectDir}/docs") {
@@ -158,10 +157,7 @@ curseforge {
         changelogType = 'html'
         changelog = file('docs/changelog.html')
 		
-		addGameVersion '1.16.4'
-		addGameVersion '1.16.3'
-		addGameVersion '1.16.2'
-		addGameVersion '1.16.1'
+		addGameVersion '1.17.1'
 		
         //addArtifact(sourcesJar)
         //addArtifact(apiJar)

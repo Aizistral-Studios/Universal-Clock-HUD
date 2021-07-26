@@ -5,7 +5,6 @@ import java.util.function.Supplier;
 import com.integral.universalclockhud.handlers.ClientConfigHandler;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.screen.ChatScreen;
 import net.minecraft.util.Tuple;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;

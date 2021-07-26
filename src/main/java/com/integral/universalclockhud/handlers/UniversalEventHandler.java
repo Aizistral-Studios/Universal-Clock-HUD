@@ -11,16 +11,13 @@ import com.integral.universalclockhud.helpers.OverlayPositionHelper.AnchorPoint;
 import com.integral.universalclockhud.helpers.OverlayPositionHelper.OverlayPosition;
 import com.mojang.blaze3d.systems.RenderSystem;
 
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.AbstractGui;
-import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.gui.screen.ChatScreen;
-import net.minecraft.client.gui.screen.CreateWorldScreen;
-import net.minecraft.client.gui.widget.TextFieldWidget;
-import net.minecraft.client.resources.I18n;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.Gui;
+import net.minecraft.client.gui.screens.ChatScreen;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Tuple;
-import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.GuiScreenEvent;
@@ -48,7 +45,7 @@ public class UniversalEventHandler {
 
 		Minecraft mc = Minecraft.getInstance();
 
-		mc.getTextureManager().bind(CLOCK_HUD_LOCATION);
+		this.bind(CLOCK_HUD_LOCATION);
 		RenderSystem.enableBlend();
 
 		int width = event.getWindow().getGuiScaledWidth();
@@ -79,16 +76,20 @@ public class UniversalEventHandler {
 			text = alt_text;
 		}
 
-		FontRenderer textRenderer = mc.font;
+		Font textRenderer = mc.font;
 
 		mc.getItemRenderer().renderAndDecorateItem(UniversalClockHUD.universalClock, truePos.getA()+6, truePos.getB()+6);
 
-		textRenderer.drawShadow(event.getMatrixStack(), text, truePos.getA()+29, truePos.getB()+10, TextFormatting.GOLD.getColor());
+		textRenderer.drawShadow(event.getMatrixStack(), text, truePos.getA()+29, truePos.getB()+10, ChatFormatting.GOLD.getColor());
 
 		event.getMatrixStack().popPose();
 
 		RenderSystem.disableBlend();
-		mc.getTextureManager().bind(AbstractGui.GUI_ICONS_LOCATION);
+		this.bind(Gui.GUI_ICONS_LOCATION);
+	}
+
+	private void bind(ResourceLocation texture) {
+		RenderSystem.setShaderTexture(0, texture);
 	}
 
 }
