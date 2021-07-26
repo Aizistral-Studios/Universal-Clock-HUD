@@ -39,38 +39,38 @@ public class UniversalEventHandler {
 			return;
 
 		if (ClientConfigHandler.clockHUDHideInChat.get())
-			if (Minecraft.getInstance().currentScreen instanceof ChatScreen)
+			if (Minecraft.getInstance().screen instanceof ChatScreen)
 				return;
 
 		if (ClientConfigHandler.clockHUDOnlyFullscreen.get())
-			if (!Minecraft.getInstance().getMainWindow().isFullscreen())
+			if (!Minecraft.getInstance().getWindow().isFullscreen())
 				return;
 
 		Minecraft mc = Minecraft.getInstance();
 
-		mc.getTextureManager().bindTexture(CLOCK_HUD_LOCATION);
+		mc.getTextureManager().bind(CLOCK_HUD_LOCATION);
 		RenderSystem.enableBlend();
 
-		int width = event.getWindow().getScaledWidth();
-		int height = event.getWindow().getScaledHeight();
+		int width = event.getWindow().getGuiScaledWidth();
+		int height = event.getWindow().getGuiScaledHeight();
 		//float guiScale = getFloat("clockHudScaleFactor");
 
-		event.getMatrixStack().push();
+		event.getMatrixStack().pushPose();
 		event.getMatrixStack().scale(1F, 1F, 1F);
 
 		Tuple<Integer, Integer> truePos = ClientConfigHandler.clockPositionOption.get().calculatePosition(width, height);
 
 		if (ClientConfigHandler.clockHUDBackgroundEnabled.get()) {
-			mc.ingameGUI.blit(event.getMatrixStack(), truePos.getA(),  truePos.getB(), 0, 0, 66, 28);
+			mc.gui.blit(event.getMatrixStack(), truePos.getA(),  truePos.getB(), 0, 0, 66, 28);
 		}
-		event.getMatrixStack().pop();
+		event.getMatrixStack().popPose();
 
-		event.getMatrixStack().push();
+		event.getMatrixStack().pushPose();
 		event.getMatrixStack().scale(1F, 1F, 1F);
 
 		String text = (Calendar.getInstance().get(Calendar.HOUR_OF_DAY) <= 9 ? ("0"+Calendar.getInstance().get(Calendar.HOUR_OF_DAY)) : (""+Calendar.getInstance().get(Calendar.HOUR_OF_DAY))) + ":" + (Calendar.getInstance().get(Calendar.MINUTE) <= 9 ? ("0"+Calendar.getInstance().get(Calendar.MINUTE)) : (""+Calendar.getInstance().get(Calendar.MINUTE)));
 
-		if (Minecraft.getInstance().world.func_234923_W_() == SuperpositionHandler.getNetherKey() || Minecraft.getInstance().world.func_234923_W_() == SuperpositionHandler.getEndKey()) {
+		if (Minecraft.getInstance().level.dimension() == SuperpositionHandler.getNetherKey() || Minecraft.getInstance().level.dimension() == SuperpositionHandler.getEndKey()) {
 			String alt_text = "";
 			for (int i = 0; i < text.length(); i++) {
 				alt_text = alt_text.concat(Character.isDigit(text.charAt(i)) ? ""+theySeeMeRollin.nextInt(10) : ""+text.charAt(i));
@@ -79,16 +79,16 @@ public class UniversalEventHandler {
 			text = alt_text;
 		}
 
-		FontRenderer textRenderer = mc.fontRenderer;
+		FontRenderer textRenderer = mc.font;
 
-		mc.getItemRenderer().renderItemAndEffectIntoGUI(UniversalClockHUD.universalClock, truePos.getA()+6, truePos.getB()+6);
+		mc.getItemRenderer().renderAndDecorateItem(UniversalClockHUD.universalClock, truePos.getA()+6, truePos.getB()+6);
 
-		textRenderer.drawStringWithShadow(event.getMatrixStack(), text, truePos.getA()+29, truePos.getB()+10, TextFormatting.GOLD.getColor());
+		textRenderer.drawShadow(event.getMatrixStack(), text, truePos.getA()+29, truePos.getB()+10, TextFormatting.GOLD.getColor());
 
-		event.getMatrixStack().pop();
+		event.getMatrixStack().popPose();
 
 		RenderSystem.disableBlend();
-		mc.getTextureManager().bindTexture(AbstractGui.GUI_ICONS_LOCATION);
+		mc.getTextureManager().bind(AbstractGui.GUI_ICONS_LOCATION);
 	}
 
 }
