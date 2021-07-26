@@ -1,9 +1,9 @@
 # Universal Clock HUD
 
-**Current Version:** 1.1.1
+**Current Version:** 1.2.0
 
-**Minecraft Version:** 1.16.x
+**Minecraft Version:** 1.17.x
 
-**Forge Version:** 32.0.0 or later.
+**Forge Version:** 37.0.0 or later.
 
 Simple mod that adds configurable clock to the game overlay.
