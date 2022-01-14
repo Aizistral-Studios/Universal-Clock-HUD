@@ -26,7 +26,7 @@ archivesBaseName = "${mod_archives_name}"
 
 
 println("Specifying Java compatibility...")
-java.toolchain.languageVersion = JavaLanguageVersion.of(16)
+java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
 println("Java Installation Data:")
 println(" - Java Version: " + System.getProperty('java.version'))
@@ -36,7 +36,7 @@ println(" - OS Archetype: " + System.getProperty('os.arch'))
 
 minecraft {
 	println("Specifying MCP mappings...")
-    mappings channel: 'official', version: '1.17.1'
+    mappings channel: 'official', version: '1.18.1'
 	println("Specifying Access Transformer configuration...")	
 	// accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
 	
@@ -157,7 +157,8 @@ curseforge {
         changelogType = 'html'
         changelog = file('docs/changelog.html')
 		
-		addGameVersion '1.17.1'
+		addGameVersion '1.18'
+		addGameVersion '1.18.1'
 		
         //addArtifact(sourcesJar)
         //addArtifact(apiJar)

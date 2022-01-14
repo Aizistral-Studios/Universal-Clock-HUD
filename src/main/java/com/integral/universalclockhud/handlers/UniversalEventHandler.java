@@ -1,14 +1,9 @@
 package com.integral.universalclockhud.handlers;
 
-import static com.integral.universalclockhud.handlers.ClientConfigHandler.*;
-
 import java.util.Calendar;
 import java.util.Random;
 
 import com.integral.universalclockhud.UniversalClockHUD;
-import com.integral.universalclockhud.helpers.IntegratedPreset;
-import com.integral.universalclockhud.helpers.OverlayPositionHelper.AnchorPoint;
-import com.integral.universalclockhud.helpers.OverlayPositionHelper.OverlayPosition;
 import com.mojang.blaze3d.systems.RenderSystem;
 
 import net.minecraft.ChatFormatting;
@@ -20,11 +15,10 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Tuple;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.client.event.GuiScreenEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.ModList;
 
+@SuppressWarnings("resource")
 public class UniversalEventHandler {
 	public static final Random theySeeMeRollin = new Random();
 	public static final ResourceLocation CLOCK_HUD_LOCATION = new ResourceLocation(UniversalClockHUD.MODID, "textures/gui/clock_hud_rect.png");
