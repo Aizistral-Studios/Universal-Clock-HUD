@@ -18,6 +18,8 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
+import static com.integral.universalclockhud.handlers.ClientConfigHandler.*;
+
 @SuppressWarnings("resource")
 public class UniversalEventHandler {
 	public static final Random theySeeMeRollin = new Random();
@@ -26,18 +28,21 @@ public class UniversalEventHandler {
 	@SubscribeEvent
 	@OnlyIn(Dist.CLIENT)
 	public void onOverlayRender(RenderGameOverlayEvent.Post event) {
-		if (event.getType() != RenderGameOverlayEvent.ElementType.ALL || !ClientConfigHandler.clockHUDEnabled.get())
+		if (event.getType() != RenderGameOverlayEvent.ElementType.ALL || !clockHUDEnabled.get())
 			return;
 
-		if (ClientConfigHandler.clockHUDHideInChat.get())
+		Minecraft mc = Minecraft.getInstance();
+
+		if (clockHUDHideInChat.get())
 			if (Minecraft.getInstance().screen instanceof ChatScreen)
 				return;
 
-		if (ClientConfigHandler.clockHUDOnlyFullscreen.get())
+		if (clockHUDOnlyFullscreen.get())
 			if (!Minecraft.getInstance().getWindow().isFullscreen())
 				return;
 
-		Minecraft mc = Minecraft.getInstance();
+		if (clockHUDRequireInventoryClock.get() && !SuperpositionHandler.hasVanillaClock(mc.player))
+			return;
 
 		this.bind(CLOCK_HUD_LOCATION);
 		RenderSystem.enableBlend();
@@ -49,9 +54,9 @@ public class UniversalEventHandler {
 		event.getMatrixStack().pushPose();
 		event.getMatrixStack().scale(1F, 1F, 1F);
 
-		Tuple<Integer, Integer> truePos = ClientConfigHandler.clockPositionOption.get().calculatePosition(width, height);
+		Tuple<Integer, Integer> truePos = clockPositionOption.get().calculatePosition(width, height);
 
-		if (ClientConfigHandler.clockHUDBackgroundEnabled.get()) {
+		if (clockHUDBackgroundEnabled.get()) {
 			mc.gui.blit(event.getMatrixStack(), truePos.getA(),  truePos.getB(), 0, 0, 66, 28);
 		}
 		event.getMatrixStack().popPose();
@@ -59,16 +64,31 @@ public class UniversalEventHandler {
 		event.getMatrixStack().pushPose();
 		event.getMatrixStack().scale(1F, 1F, 1F);
 
-		String text = (Calendar.getInstance().get(Calendar.HOUR_OF_DAY) <= 9 ? ("0"+Calendar.getInstance().get(Calendar.HOUR_OF_DAY)) : (""+Calendar.getInstance().get(Calendar.HOUR_OF_DAY))) + ":" + (Calendar.getInstance().get(Calendar.MINUTE) <= 9 ? ("0"+Calendar.getInstance().get(Calendar.MINUTE)) : (""+Calendar.getInstance().get(Calendar.MINUTE)));
+		String text = null;
 
-		if (Minecraft.getInstance().level.dimension() == SuperpositionHandler.getNetherKey() || Minecraft.getInstance().level.dimension() == SuperpositionHandler.getEndKey()) {
-			String alt_text = "";
-			for (int i = 0; i < text.length(); i++) {
-				alt_text = alt_text.concat(Character.isDigit(text.charAt(i)) ? ""+theySeeMeRollin.nextInt(10) : ""+text.charAt(i));
+		if (clockHUDIngameTime.get()) {
+			text = clockHUD12HFormat.get() ? SuperpositionHandler.get12hFromTicks(mc.level)
+					: SuperpositionHandler.get24hFromIngame(mc.level);
+		} else {
+			int hour = Calendar.getInstance().get(clockHUD12HFormat.get() ? Calendar.HOUR : Calendar.HOUR_OF_DAY);
+			int minute = Calendar.getInstance().get(Calendar.MINUTE);
+
+			if (clockHUD12HFormat.get() && hour == 0) {
+				hour = 12;
 			}
 
-			text = alt_text;
+			text = (hour <= 9 ? ("0" + hour) : ("" + hour)) + ":" + (minute <= 9 ? ("0" + minute) : ("" + minute));
 		}
+
+		if (clockHUDGoCrazy.get())
+			if (mc.level.dimension() == SuperpositionHandler.getNetherKey() || mc.level.dimension() == SuperpositionHandler.getEndKey()) {
+				String alt_text = "";
+				for (int i = 0; i < text.length(); i++) {
+					alt_text = alt_text.concat(Character.isDigit(text.charAt(i)) ? "" + theySeeMeRollin.nextInt(10) : "" + text.charAt(i));
+				}
+
+				text = alt_text;
+			}
 
 		Font textRenderer = mc.font;
 

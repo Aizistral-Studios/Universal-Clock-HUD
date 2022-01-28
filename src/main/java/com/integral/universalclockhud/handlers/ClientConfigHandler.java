@@ -13,6 +13,11 @@ public class ClientConfigHandler {
 	public static ForgeConfigSpec.BooleanValue clockHUDHideInChat;
 	public static ForgeConfigSpec.BooleanValue clockHUDBackgroundEnabled;
 
+	public static ForgeConfigSpec.BooleanValue clockHUDIngameTime;
+	public static ForgeConfigSpec.BooleanValue clockHUDRequireInventoryClock;
+	public static ForgeConfigSpec.BooleanValue clockHUDGoCrazy;
+	public static ForgeConfigSpec.BooleanValue clockHUD12HFormat;
+
 	public static ForgeConfigSpec.EnumValue<IntegratedPreset> clockPositionOption;
 	public static ForgeConfigSpec.EnumValue<AnchorPoint> customPresetAnchorPoint;
 	public static ForgeConfigSpec.IntValue customPresetXOffset;
@@ -42,6 +47,22 @@ public class ClientConfigHandler {
 		clockPositionOption = builder
 				.comment("Position preset for Universal Clock, default option puts it to the right of the hotbar.")
 				.defineEnum("clockPositionOption", IntegratedPreset.HOTBAR_RIGHT);
+
+		clockHUDIngameTime = builder
+				.comment("Show in-game time instead of real-world time.")
+				.define("clockHUDIngameTime", false);
+
+		clockHUDRequireInventoryClock = builder
+				.comment("If true, Universal Clock will only be shown if you have vanilla clock in the inventory.")
+				.define("clockHUDRequireInventoryClock", false);
+
+		clockHUDGoCrazy = builder
+				.comment("Whether or not displayed time should spin uncontrollably when in Nether or The End.")
+				.define("clockHUDGoCrazy", true);
+
+		clockHUD12HFormat = builder
+				.comment("If true, 12-hour format will be used instead of 24-hour.")
+				.define("clockHUD12HFormat", false);
 
 		builder.pop();
 
