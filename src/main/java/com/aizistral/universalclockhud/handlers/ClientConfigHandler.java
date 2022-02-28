@@ -1,7 +1,7 @@
-package com.integral.universalclockhud.handlers;
+package com.aizistral.universalclockhud.handlers;
 
-import com.integral.universalclockhud.helpers.IntegratedPreset;
-import com.integral.universalclockhud.helpers.OverlayPositionHelper.AnchorPoint;
+import com.aizistral.universalclockhud.helpers.IntegratedPreset;
+import com.aizistral.universalclockhud.helpers.OverlayPositionHelper.AnchorPoint;
 
 import net.minecraftforge.common.ForgeConfigSpec;
 

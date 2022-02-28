@@ -1,8 +1,8 @@
-package com.integral.universalclockhud.helpers;
+package com.aizistral.universalclockhud.helpers;
 
 import java.util.function.Supplier;
 
-import com.integral.universalclockhud.handlers.ClientConfigHandler;
+import com.aizistral.universalclockhud.handlers.ClientConfigHandler;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.Tuple;

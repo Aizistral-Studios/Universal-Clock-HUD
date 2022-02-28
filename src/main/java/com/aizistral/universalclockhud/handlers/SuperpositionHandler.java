@@ -1,4 +1,4 @@
-package com.integral.universalclockhud.handlers;
+package com.aizistral.universalclockhud.handlers;
 
 import java.util.List;
 import java.util.stream.Stream;

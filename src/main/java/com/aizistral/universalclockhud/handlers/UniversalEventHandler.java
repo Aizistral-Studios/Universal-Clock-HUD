@@ -1,9 +1,11 @@
-package com.integral.universalclockhud.handlers;
+package com.aizistral.universalclockhud.handlers;
+
+import static com.aizistral.universalclockhud.handlers.ClientConfigHandler.*;
 
 import java.util.Calendar;
 import java.util.Random;
 
-import com.integral.universalclockhud.UniversalClockHUD;
+import com.aizistral.universalclockhud.UniversalClockHUD;
 import com.mojang.blaze3d.systems.RenderSystem;
 
 import net.minecraft.ChatFormatting;
@@ -17,8 +19,6 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-
-import static com.integral.universalclockhud.handlers.ClientConfigHandler.*;
 
 @SuppressWarnings("resource")
 public class UniversalEventHandler {

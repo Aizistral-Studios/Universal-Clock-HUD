@@ -1,9 +1,10 @@
-package com.integral.universalclockhud.helpers;
+package com.aizistral.universalclockhud.helpers;
+
+import static com.aizistral.universalclockhud.handlers.ClientConfigHandler.*;
 
 import java.util.function.Supplier;
 
-import com.integral.universalclockhud.helpers.OverlayPositionHelper.*;
-import static com.integral.universalclockhud.handlers.ClientConfigHandler.*;
+import com.aizistral.universalclockhud.helpers.OverlayPositionHelper.*;
 
 import net.minecraft.util.Tuple;
 

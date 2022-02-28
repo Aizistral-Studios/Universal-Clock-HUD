@@ -1,7 +1,7 @@
-package com.integral.universalclockhud;
+package com.aizistral.universalclockhud;
 
-import com.integral.universalclockhud.handlers.ClientConfigHandler;
-import com.integral.universalclockhud.handlers.UniversalEventHandler;
+import com.aizistral.universalclockhud.handlers.ClientConfigHandler;
+import com.aizistral.universalclockhud.handlers.UniversalEventHandler;
 
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
