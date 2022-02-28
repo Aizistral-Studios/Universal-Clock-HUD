@@ -34,6 +34,20 @@ public class SuperpositionHandler {
 		return false;
 	}
 
+	@SuppressWarnings("unchecked")
+	public static ItemStack getVanillaClock(Player player) {
+		Inventory inventory = player.getInventory();
+		for (List<ItemStack> list : new List[] { inventory.armor, inventory.items, inventory.offhand }) {
+			for (ItemStack itemStack : list) {
+				if (itemStack.getItem() == Items.CLOCK)
+					return itemStack;
+			}
+		}
+
+		return ItemStack.EMPTY;
+	}
+
+
 	public static String get24hFromIngame(Level level) {
 		return getTimeFromTicks(level, false);
 	}

@@ -15,6 +15,7 @@ import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.screens.ChatScreen;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Tuple;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
@@ -32,6 +33,7 @@ public class UniversalEventHandler {
 			return;
 
 		Minecraft mc = Minecraft.getInstance();
+		ItemStack clock = UniversalClockHUD.universalClock;
 
 		if (clockHUDHideInChat.get())
 			if (Minecraft.getInstance().screen instanceof ChatScreen)
@@ -41,8 +43,12 @@ public class UniversalEventHandler {
 			if (!Minecraft.getInstance().getWindow().isFullscreen())
 				return;
 
-		if (clockHUDRequireInventoryClock.get() && !SuperpositionHandler.hasVanillaClock(mc.player))
-			return;
+		if (clockHUDRequireInventoryClock.get()) {
+			clock = SuperpositionHandler.getVanillaClock(mc.player);
+
+			if (clock.isEmpty())
+				return;
+		}
 
 		this.bind(CLOCK_HUD_LOCATION);
 		RenderSystem.enableBlend();
@@ -92,7 +98,7 @@ public class UniversalEventHandler {
 
 		Font textRenderer = mc.font;
 
-		mc.getItemRenderer().renderAndDecorateItem(UniversalClockHUD.universalClock, truePos.getA()+6, truePos.getB()+6);
+		mc.getItemRenderer().renderAndDecorateItem(clock, truePos.getA()+6, truePos.getB()+6);
 
 		textRenderer.drawShadow(event.getMatrixStack(), text, truePos.getA()+29, truePos.getB()+10, ChatFormatting.GOLD.getColor());
 

@@ -1,0 +1,15 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.aizistral.universalclockhud.mixins",
+  "compatibilityLevel": "JAVA_17",
+  "refmap": "universalclockhud.refmap.json",
+  "verbose": true,
+  "mixins": [
+  ],
+  "client": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
