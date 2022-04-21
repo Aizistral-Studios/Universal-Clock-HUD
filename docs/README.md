@@ -1,6 +1,6 @@
 # Universal Clock HUD
 
-**Current Version:** 1.18.1-v1.4.1
+**Current Version:** 1.18.2-v1.5.0
 
 **Minecraft Version:** 1.18.x
 
