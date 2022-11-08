@@ -7,7 +7,6 @@ import com.aizistral.universalclockhud.handlers.ClientConfigHandler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.Tuple;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 

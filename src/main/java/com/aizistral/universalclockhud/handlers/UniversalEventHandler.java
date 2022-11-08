@@ -18,7 +18,8 @@ import net.minecraft.util.Tuple;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.client.event.RenderGameOverlayEvent;
+import net.minecraftforge.client.event.RenderGuiEvent;
+import net.minecraftforge.client.event.RenderGuiOverlayEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 @SuppressWarnings("resource")
@@ -28,8 +29,8 @@ public class UniversalEventHandler {
 
 	@SubscribeEvent
 	@OnlyIn(Dist.CLIENT)
-	public void onOverlayRender(RenderGameOverlayEvent.Post event) {
-		if (event.getType() != RenderGameOverlayEvent.ElementType.ALL || !clockHUDEnabled.get())
+	public void onOverlayRender(RenderGuiEvent.Post event) {
+		if (!clockHUDEnabled.get())
 			return;
 
 		Minecraft mc = Minecraft.getInstance();
@@ -57,18 +58,18 @@ public class UniversalEventHandler {
 		int height = event.getWindow().getGuiScaledHeight();
 		//float guiScale = getFloat("clockHudScaleFactor");
 
-		event.getMatrixStack().pushPose();
-		event.getMatrixStack().scale(1F, 1F, 1F);
+		event.getPoseStack().pushPose();
+		event.getPoseStack().scale(1F, 1F, 1F);
 
 		Tuple<Integer, Integer> truePos = clockPositionOption.get().calculatePosition(width, height);
 
 		if (clockHUDBackgroundEnabled.get()) {
-			mc.gui.blit(event.getMatrixStack(), truePos.getA(),  truePos.getB(), 0, 0, 66, 28);
+			mc.gui.blit(event.getPoseStack(), truePos.getA(),  truePos.getB(), 0, 0, 66, 28);
 		}
-		event.getMatrixStack().popPose();
+		event.getPoseStack().popPose();
 
-		event.getMatrixStack().pushPose();
-		event.getMatrixStack().scale(1F, 1F, 1F);
+		event.getPoseStack().pushPose();
+		event.getPoseStack().scale(1F, 1F, 1F);
 
 		String text = null;
 
@@ -100,9 +101,9 @@ public class UniversalEventHandler {
 
 		mc.getItemRenderer().renderAndDecorateItem(clock, truePos.getA()+6, truePos.getB()+6);
 
-		textRenderer.drawShadow(event.getMatrixStack(), text, truePos.getA()+29, truePos.getB()+10, ChatFormatting.GOLD.getColor());
+		textRenderer.drawShadow(event.getPoseStack(), text, truePos.getA()+29, truePos.getB()+10, ChatFormatting.GOLD.getColor());
 
-		event.getMatrixStack().popPose();
+		event.getPoseStack().popPose();
 
 		RenderSystem.disableBlend();
 		this.bind(Gui.GUI_ICONS_LOCATION);
