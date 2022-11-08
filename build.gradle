@@ -194,7 +194,7 @@ modrinth {
     token = findProperty('modrinthKey') ?: '0'
     projectId = "fRPrNMfo"
     versionNumber = project.version
-	versionName = project.mod_name + " " + project.version
+	versionName = project.mod_name + " Forge-" + project.version
     versionType = "release"
 	changelog = rootProject.file("docs/changelog.html").text
     uploadFile = jar
