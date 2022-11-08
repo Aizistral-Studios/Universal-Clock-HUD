@@ -1,6 +1,5 @@
 buildscript {
     repositories {
-		mavenLocal()
         maven { url = 'https://maven.minecraftforge.net' }
         maven { url = 'https://dist.creeper.host/Sponge/maven' }
         maven { url 'https://plugins.gradle.org/m2/' }
@@ -9,17 +8,17 @@ buildscript {
     dependencies {
         classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
 		classpath 'gradle.plugin.com.matthewprenger:CurseGradle:1.4.0'
-        classpath group: 'org.spongepowered', name: 'mixingradle', version: '0.7-1.0.0-SNAPSHOT'
+        classpath group: 'org.spongepowered', name: 'mixingradle', version: '0.7-SNAPSHOT'
     }
 }
 
 println("Applying plugins...")
 
 apply plugin: 'net.minecraftforge.gradle'
+apply plugin: 'org.spongepowered.mixin'
 apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 apply plugin: 'com.matthewprenger.cursegradle'
-apply plugin: 'org.spongepowered.mixin'
 
 println("Specifying project version/group/archivesBaseName...")
 version = "${mod_version}"
