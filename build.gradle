@@ -7,6 +7,14 @@ buildscript {
             url "https://repo.spongepowered.org/repository/maven-public/"
             content { includeGroup "org.spongepowered" }
         }
+        maven {
+			name "Gradle Plugin Portal"
+			url 'https://plugins.gradle.org/m2/'
+			content { 
+				includeGroup "gradle.plugin.com.matthewprenger"
+				includeGroup "com.modrinth"
+			}
+		}
         mavenCentral()
     }
     dependencies {
@@ -14,6 +22,10 @@ buildscript {
 		classpath 'gradle.plugin.com.matthewprenger:CurseGradle:1.4.0'
         classpath group: 'org.spongepowered', name: 'mixingradle', version: '0.7-SNAPSHOT'
     }
+}
+
+plugins {
+    id "com.modrinth.minotaur" version "2.+"
 }
 
 println("Applying plugins...")
@@ -158,27 +170,40 @@ processResources {
 }
 
 curseforge {
-
     project {
 		println("Pushing CurseGradle specifications for project ID: ${curse_id}")	
 	
 		// Specified as cmd argument
-        apiKey = findProperty('curseKey') ?: 0
+        apiKey = findProperty('curseKey') ?: '0'
         
 		id = "${curse_id}"
         releaseType = "${curse_release}"
         changelogType = 'html'
         changelog = file('docs/changelog.html')
 		
-		addGameVersion '1.18'
-		addGameVersion '1.18.1'
+		addGameVersion '1.19'
+		addGameVersion '1.19.1'
+		addGameVersion '1.19.2'
 		
         //addArtifact(sourcesJar)
         //addArtifact(apiJar)
     }
 }
 
-
+modrinth {
+    token = findProperty('modrinthKey') ?: '0'
+    projectId = "fRPrNMfo"
+    versionNumber = project.version
+	versionName = project.mod_name + " " + project.version
+    versionType = "release"
+	changelog = rootProject.file("docs/changelog.html").text
+    uploadFile = jar
+    gameVersions = ["1.19", "1.19.1", "1.19.2"]
+    dependencies {
+		// The scope can be `required`, `optional`, or `incompatible`
+		//required.project "nU0bVIaL"
+    }
+}
 
 task updateResources() {
     // NO-OP
@@ -192,6 +217,11 @@ tasks.withType(JavaCompile) {
 
 jar.finalizedBy('reobfJar') 
 //publish.dependsOn('reobfJar')
+
+task upload {
+	dependsOn('modrinth')
+	dependsOn('curseforge')
+}
 
 publishing {
 
