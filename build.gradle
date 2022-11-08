@@ -149,9 +149,10 @@ processResources {
     }
 
     from("${project.projectDir}/docs") {
-		println("Including documentation...")	
-		// Include a license and changelog into build .jar
         include 'changelog.html'
+    }
+
+    from("${project.projectDir}") {
         include 'LICENSE'
     }
 }
